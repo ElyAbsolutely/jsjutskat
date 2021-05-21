@@ -1,0 +1,88 @@
+document.getElementById("btnlisaa").addEventListener("click", lisaa)
+document.getElementById("btnpoista").addEventListener("click", poista)
+document.getElementById("btnjarjesta").addEventListener("click", jarjesta)
+document.getElementById("btnlisaa10").addEventListener("click", kaverit10)
+
+function kaverit10(event) {
+
+    event.preventDefault();
+    var x = document.getElementById("nimiform10").value;
+
+    if (x.length == 0) {
+        window.alert("dummy");
+        return;
+    }
+
+    var lista = document.getElementById("kaverit10");
+
+    var de = 0;
+    lista.querySelectorAll('li').forEach(function (item) {
+        de++;
+    });
+
+    if (de > 9) {
+        return;
+    }
+
+    var li = document.createElement("li");
+    var aseta = document.createTextNode(x);
+
+    li.appendChild(aseta);
+    lista.appendChild(li);
+
+    if (de == 9) {
+        var text = document.getElementById("se")
+        text.textContent = ("Lista on täynnä");
+    }
+}
+
+function lisaa(event) {
+
+    event.preventDefault();
+    var x = document.getElementById("nimiform").value;
+
+    if (x.length == 0) {
+        window.alert("dummy");
+        return;
+    }
+
+    lista = document.getElementById("ulkaverit"),
+        li = document.createElement("li"),
+        aseta = document.createTextNode(x);
+
+    li.appendChild(aseta);
+    lista.appendChild(li);
+}
+
+function poista(event) {
+    event.preventDefault();
+    var lista = document.getElementById("ulkaverit");
+    lista.lastChild.remove();
+}
+
+function jarjesta(event) {
+
+    event.preventDefault();
+    var lista; var i; var switching; var b; var shouldSwitch;
+    lista = document.getElementById("ulkaverit");
+    switching = true;
+
+    while (switching) {
+        switching = false;
+        b = lista.getElementsByTagName("li");
+
+        for (var i = 0; i < (b.length - 1); i++) {
+            shouldSwitch = false;
+
+            if (b[i].innerHTML.toLowerCase() > b[i + 1].innerHTML.toLowerCase()) {
+                shouldSwitch = true;
+                break;
+            }
+        }
+
+        if (shouldSwitch) {
+            b[i].parentNode.insertBefore(b[i + 1], b[i]);
+            switching = true;
+        }
+    }
+}
